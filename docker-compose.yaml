@@ -1,0 +1,14 @@
+version: '1.0'
+services:
+  ocserv:
+    image: webvalera96/ocserv:latest
+    restart: unless-stopped
+    container_name: ocserv
+    ports:
+      - 51820:443/udp
+      - 51820:443/tcp
+    volumes:
+      - "/DATA/AppData/ocserv/config:/etc/ocserv"
+    cap_add:
+    - NET_ADMIN
+    privileged: true

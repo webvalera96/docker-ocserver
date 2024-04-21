@@ -1,0 +1,22 @@
+version: '3'
+
+vars:
+  TAG: latest
+
+tasks:  
+  build: 
+    desc: 'Build ocserv'
+    cmds:
+      - docker build -t ocserv:{{ .TAG }} -f Dockerfile .
+  
+  run:
+    desc: 'Run'
+    dotenv: ['.env']
+    cmds:         
+      - docker run -it --privileged ocserv:{{ .TAG }}
+
+  publish:
+    desc: 'Publish to dockerhub'
+    cmds:
+      - docker tag ocserv:{{ .TAG }} webvalera96/ocserv:{{ .TAG }}
+      - docker push webvalera96/ocserv:{{ .TAG }}
